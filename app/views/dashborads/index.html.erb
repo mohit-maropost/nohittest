@@ -1,0 +1,22 @@
+<table border="1" cellspacing="5" cellpadding="5" class="table">
+    <tr>
+    <td  class="all">
+        Account Name 
+    </td>
+    <td  class="all">
+       Account User List 
+    </td>
+    <td  class="all">
+        <%= button_to 'Add User', class: 'btn primary' %>
+
+    </td>
+    </tr>
+    <tr>
+        <td  class="all">
+            <%=current_user.account.name%> 
+        </td>
+        <td colspan='2' align="center"  class="all">
+           <%=current_user.name%> 
+        </td>
+    </tr>   
+</table>
