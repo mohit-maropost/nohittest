@@ -7,16 +7,16 @@
        Account User List 
     </td>
     <td  class="all">
-        <%= button_to 'Add User', class: 'btn primary' %>
+        <%= link_to 'Add User', new_user_invitation_path, class: 'btn primary' %>
 
     </td>
     </tr>
     <tr>
         <td  class="all">
-            <%=current_user.account.name%> 
+            <%=current_user.account.try(:name)%> 
         </td>
         <td colspan='2' align="center"  class="all">
-           <%=current_user.name%> 
+           <%=current_user.try(:name)%> 
         </td>
     </tr>   
 </table>
