@@ -7,13 +7,13 @@
        Account User List 
     </td>
     <td  class="all">
-        <%= link_to 'Add User', new_user_invitation_path, class: 'btn primary' %>
+        <%= link_to 'Add User', new_invite_path , class: 'btn primary' %>
 
     </td>
     </tr>
     <tr>
         <td  class="all">
-            <%=current_user.account.try(:name)%> 
+            <%= Account.where(owner_id: current_user.id).first.name%> 
         </td>
         <td colspan='2' align="center"  class="all">
            <%=current_user.try(:name)%> 

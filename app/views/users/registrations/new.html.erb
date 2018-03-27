@@ -1,5 +1,4 @@
 <h2>Sign up</h2>
-<% resource.build_account if resource.account.nil? %>
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= devise_error_messages! %>
 
@@ -7,14 +6,15 @@
     <%= f.label :name %><br />
     <%= f.text_field :name, autofocus: true, autocomplete: "name" %>
   </div>
-
-  <div class="field">
-    <%= f.fields_for :account do |account_fields| %>
-      <%= account_fields.label 'Account name' %><br />
-      <%= account_fields.text_field :name %>
-    <% end %>
-  </div>
-
+  
+  <%if params[:invite_token].present?%>
+    <%= hidden_field_tag :invite_token, @token %>
+  <% else %>
+    <div class="field">
+        <%= f.label :account_name %><br />
+        <%= f.text_field :account_name %>
+    </div>
+  <%end%>
   <div class="field">
     <%= f.label :email %><br />
     <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
