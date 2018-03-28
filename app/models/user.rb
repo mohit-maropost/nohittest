@@ -15,8 +15,8 @@ class User < ActiveRecord::Base
     Account.create(name: account_name, owner_id: self.id) if account_name
 
 	  if invite_token != nil
-	     org =  Invite.where(token: invite_token).first #find the user group attached to the invite
-	     org.update_aatributes(user_id: self.id) if org
+	     org =  Invite.find_by_token(invite_token) #find the user group attached to the invite
+	     org.update_atributes(user_id: self.id) if org
 	  end
 	end
 

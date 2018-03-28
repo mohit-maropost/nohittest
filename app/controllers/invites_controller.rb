@@ -12,10 +12,7 @@ class InvitesController < ApplicationController
 	  if @invite.save
 	    #if the user already exists
 	    if @invite.user_id != nil 
-	       #send a notification email
-	       InviteMailer.existing_user_invite(@invite, new_user_session_path).deliver 
-	       #Add the user to the user group
-	       @invite.user_id = user.id
+	       InviteMailer.existing_user_invite(@invite, new_user_registration_path).deliver 
 	    else
 	       InviteMailer.new_user_invite(@invite, new_user_registration_path(:invite_token => @invite.token)).deliver
 	    end

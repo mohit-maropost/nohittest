@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
   end
 
   def check_url
-    debuggrer
+    debugger
   	if params[:invite_token].present?
       org =  Invite.find_by_token(params[:invite_token]) #find the user group attached to the invite
       redirect_to(invites_token_url_path) unless org
