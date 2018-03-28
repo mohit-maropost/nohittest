@@ -12,14 +12,13 @@ class ApplicationController < ActionController::Base
   protected
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :email, :password, :password_confirmation, :account_name])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :email, :password, :password_confirmation, :account_name, :invite_token])
   end
 
   def check_url
-    debugger
-  	if params[:invite_token].present?
+    if params[:invite_token].present?
       org =  Invite.find_by_token(params[:invite_token]) #find the user group attached to the invite
       redirect_to(invites_token_url_path) unless org
-	end
+    end
   end
 end

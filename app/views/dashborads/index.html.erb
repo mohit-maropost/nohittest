@@ -13,10 +13,20 @@
     </tr>
     <tr>
         <td  class="all">
-            sfihi
+           <%= @owner.name%>
                </td>
         <td colspan='2' align="center"  class="all">
            <%=current_user.try(:name)%> 
         </td>
-    </tr>   
+    </tr>
+      <%@account_member.each do |member| %>
+         <tr>
+            <td  class="all">
+                <%= @owner.name%>
+                   </td>
+            <td colspan='2' align="center"  class="all">
+               <%=member.email%> 
+            </td>
+        </tr>
+     <%end%>  
 </table>

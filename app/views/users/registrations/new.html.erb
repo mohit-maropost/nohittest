@@ -8,7 +8,7 @@
   </div>
   
   <%if params[:invite_token].present?%>
-    <%= hidden_field_tag :invite_token, @token %>
+    <%= f.hidden_field :invite_token, :value => params[:invite_token] %>
   <% else %>
     <div class="field">
         <%= f.label :account_name %><br />

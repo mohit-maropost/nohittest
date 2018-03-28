@@ -10,13 +10,14 @@ class User < ActiveRecord::Base
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
+         
   def generate_user_or_invite_user
   	
     Account.create(name: account_name, owner_id: self.id) if account_name
-
+    debugger
 	  if invite_token != nil
 	     org =  Invite.find_by_token(invite_token) #find the user group attached to the invite
-	     org.update_atributes(user_id: self.id) if org
+	     org.update(user_id: self.id, token: "") if org
 	  end
 	end
 
