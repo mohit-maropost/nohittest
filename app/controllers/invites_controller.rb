@@ -1,4 +1,6 @@
 class InvitesController < ApplicationController
+	before_action :authenticate_user!, :except => [:token_url]
+
 	def new
 		@invite =  Invite.new
 		@account = Account.where(owner_id: current_user.id).first
@@ -7,12 +9,11 @@ class InvitesController < ApplicationController
 
 	def create
 	  @invite = Invite.new(invite_params)
-	  @invite.sender_id = current_user.id
 	  if @invite.save
 	    #if the user already exists
-	    if @invite.recipient != nil 
+	    if @invite.user_id != nil 
 	       #send a notification email
-	       InviteMailer.existing_user_invite(@invite, new_user_registration_path).deliver 
+	       InviteMailer.existing_user_invite(@invite, new_user_session_path).deliver 
 	       #Add the user to the user group
 	       @invite.user_id = user.id
 	    else
@@ -24,6 +25,8 @@ class InvitesController < ApplicationController
 	  redirect_to root_path 
 	end
 
+	def token_url
+	end
 
 	private
 
