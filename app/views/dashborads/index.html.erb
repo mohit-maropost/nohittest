@@ -1,32 +1,13 @@
-<table border="1" cellspacing="5" cellpadding="5" class="table">
-    <tr>
-    <td  class="all">
-        Account Name 
-    </td>
-    <td  class="all">
-       Account User List 
-    </td>
-    <td  class="all">
-        <%= link_to 'Add User', new_invite_path , class: 'btn primary' %>
-
-    </td>
-    </tr>
-    <tr>
-        <td  class="all">
-           <%= @owner.name%>
-               </td>
-        <td colspan='2' align="center"  class="all">
-           <%=current_user.try(:name)%> 
-        </td>
-    </tr>
-      <%@account_member.each do |member| %>
-         <tr>
-            <td  class="all">
-                <%= @owner.name%>
-                   </td>
-            <td colspan='2' align="center"  class="all">
-               <%=member.email%> 
-            </td>
-        </tr>
-     <%end%>  
-</table>
+<div class="card bg-light mt-3 ml-3" style="max-width: 20rem;">
+  <div class="card-header">Accounts</div>
+    <div class="card-body">
+      <p class="card-text">
+        <% @accounts.each do |account|%>
+          <a href="<%= account_path(account) %>">
+          <h4><%= account.name %></h4>
+          </a>
+          <p>owner: (<%=current_user.email%>)</p>
+        <%end%>
+      </p>
+    </div>
+</div>

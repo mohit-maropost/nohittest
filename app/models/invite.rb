@@ -10,6 +10,6 @@ class Invite < ActiveRecord::Base
 	end
 
 	def generate_token
-	   self.token = Digest::SHA1.hexdigest([self.account_id, Time.now, rand].join)
+	   self.token = Digest::SHA1.hexdigest([self.accounts_id, Time.now, rand].join)
 	end
 end

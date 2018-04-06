@@ -1,9 +1,16 @@
 class DashboradsController < ApplicationController
-  def index
-  	@owner= Account.where(owner_id:  current_user.id).first
-  	@account_member =  Invite.where(account_id: @owner.id)
-   	# owner_present = Account.where(owner_id: current_user.id).first
-  	# account_present = Invite.where(user_id: current_user.id).first
-  	# @owner = owner_present ? owner_present : Account.where(user)
-  end
+	def index
+		check_for_account = Account.find_by(owner_id: current_user.id)
+		if check_for_account == nil
+			@accounts = Array.new
+			@invitations = Invite.where(owner_id: current_user.id)
+			@invitations.each do |invite|
+				acc_id = invite.accounts_id
+				account = Account.find_by(id: acc_id)
+				@accounts.push(account)
+			end
+		else
+			@accounts = Account.where(owner_id: current_user.id)
+		end
+	end
 end

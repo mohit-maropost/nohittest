@@ -1,5 +1,5 @@
 <%= form_for @invite , :url => invites_path do |f| %>
-    <%= f.hidden_field :account_id, :value => @account.id %>
+    <%= f.hidden_field :accounts_id, :value => @account.id %>
     <%= f.label :email %>
     <%= f.email_field :email %>
     <%= f.submit 'Send' %>

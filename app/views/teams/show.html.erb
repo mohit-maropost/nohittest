@@ -1,0 +1,82 @@
+     <a id="modal-3666010" href="#modal-container-3666010" role="button" class="btn btn-primary float-right" data-toggle="modal">Add Teams</a> 
+
+                <div class="modal fade" id="modal-container-3666010" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="myModalLabel">Create teams <%= @account.account_name%></h5>
+                                <button type="button" class="close" data-dismiss="modal">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            
+                              <%= form_for :team , url: teams_get_user_path do |f|%> 
+                                 <div class="modal-body">
+                               <% @users.each do |u| %>
+                                   <label class="form-check-label">
+                                     <%= check_box_tag "ids[]", u.id %>
+                                     <%= u.name %>
+                                     <%= f.hidden_field :account_id , :value => @account.id %>
+                                     <%= f.hidden_field :team_id, :value => @teams.id %>
+                                   </label>
+                                 <%end%>
+                                       <div class="modal-footer">
+                                        <%= f.submit "Add",class: "btn btn-success" %>
+                                    </div>
+
+                                <% end %>
+                            </div>
+
+                                  
+                                                                  
+                                                             </div>
+                        </div>
+                    </div>
+                </div>
+ 
+
+
+
+
+<script src="https://drvic10k.github.io/bootstrap-sortable/Scripts/bootstrap-sortable.js"></script>
+<div class="row d-flex justify-content-center mt-5">
+
+  <div class="col-md-10">
+    <table class="table table-hover sortable border bg-light">
+      <thead class="thead-light">
+        <tr class="d-flex">
+          <th class="col-2">
+            Sr.no
+          </th>
+          <th class="col-2">
+             NAME
+          </th>
+          <th class="col-5">
+            Email
+          </th>
+          <th class="col-3">
+            Status
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+              <% count = 0%>
+              <% @members.each do |u| %>
+          <tr class="d-flex">
+            <td class="col-2">
+              <%= count+=1 %>
+            </td>
+            <td class="col-2">
+               <%= u.name %>
+            </td>
+            <td class="col-5">
+              <%= u.email %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+

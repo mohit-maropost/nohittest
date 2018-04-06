@@ -11,14 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180327083200) do
+ActiveRecord::Schema.define(version: 20180405091934) do
 
   create_table "accounts", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.integer  "owner_id",   limit: 4
+    t.string   "name",       limit: 255, null: false
+    t.integer  "owner_id",   limit: 4,   null: false
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end
+
+  add_index "accounts", ["name", "owner_id"], name: "index_accounts_on_name_and_owner_id", unique: true, using: :btree
 
   create_table "invites", force: :cascade do |t|
     t.integer  "account_id", limit: 4
@@ -27,6 +29,16 @@ ActiveRecord::Schema.define(version: 20180327083200) do
     t.string   "token",      limit: 255
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
+  end
+
+  add_index "invites", ["account_id", "email"], name: "account_id_email", unique: true, using: :btree
+  add_index "invites", ["account_id", "email"], name: "index_invites_on_account_id_and_email", using: :btree
+
+  create_table "teams", force: :cascade do |t|
+    t.integer  "account_id", limit: 4
+    t.integer  "team_id",    limit: 4
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
   end
 
   create_table "users", force: :cascade do |t|

@@ -29,16 +29,11 @@ class InvitesController < ApplicationController
 	private
 
 	def check_user_exist
-		present= Invite.where(email: params[:invite][:email], account_id: params[:invite][:account_id], token: "").first
-		if present
-			redirect_to(new_invite_path)
-		end	
+		present= Invite.where(accounts_id: params[:invite][:accounts_id], email: params[:invite][:email], token: "").first
+		redirect_to(new_invite_path) if present
 	end
 
 	def invite_params
-		# params.require(:invite).permit(:account_id, :user_id, :name, :token)
 		params.require(:invite).permit!
-
 	end
-
 end

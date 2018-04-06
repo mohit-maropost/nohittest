@@ -1,0 +1,20 @@
+.container
+  .mt-5.d-flex.justify-content-lg-center
+    .col-md-7.mt-5.bg-light.text-dark.border.border-lg-dark.rounded.pb-3
+      %h2.text-center.mt-3.text-dark Maropost Project Management
+      %form
+        .form-group.pt-3.mt-3
+          %label{:for => "Email"} Email
+          %input#Email.form-control{:placeholder => "Enter email", :type => "email"}/
+        .form-group
+          %label{:for => "Password"} Password
+          %input#Password.form-control{:placeholder => "Password", :type => "password"}/
+        .form-group.text-right
+          %input#Check.form-check-input{:type => "checkbox"}/
+          %label.remember Remember me
+        .form-group.text-center
+          %input.btn.btn-primary{:tabindex => "4", :type => "submit", :value => "Login"}/
+.container
+  .mt-3.d-flex.justify-content-lg-center
+    .col-md-3.mt-9.bg-light.text-dark.border.border-lg-dark.rounded.pb-3
+      = render "users/shared/links"

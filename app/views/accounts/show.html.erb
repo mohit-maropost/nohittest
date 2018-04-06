@@ -1,0 +1,132 @@
+<%if member_or_owner(current_user.id) == "Owner"%>
+    <div class="container-fluid">
+        <div class="col-md-12">
+            <div class="row">
+
+                <a id="modal-366601" href="#modal-container-366601" role="button" class="btn btn-primary float-left" data-toggle="modal">Add Users</a></br>
+                <a id="modal-3666010" href="#modal-container-3666010" role="button" class="btn btn-primary float-right" data-toggle="modal">Add Teams</a>
+                <div class="modal fade" id="modal-container-366601" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="myModalLabel">Invite Users for <%= @account.name%></h5>
+                                <button type="button" class="close" data-dismiss="modal">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+
+                            <div class="modal-body">
+                                <%= form_for :invite, :url => invites_path, :method => :post do |form| %>
+                                    <div class="form-control">
+                                        <%= form.label :email %>
+                                            <br/>
+                                            <%= form.email_field :email, autofocus: true, autocomplete: "email" %>
+                                                <%= form.hidden_field :accounts_id , :value => @account.id %>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <%= form.submit "Invite" %>
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                                Close
+                                            </button>
+                                    </div>
+                                    <%end%>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modal-container-3666010" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="myModalLabel">Create teams <%= @account.name%></h5>
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <%= form_for :team , url: account_teams_path(account_id: params[:id]) do |form|%>
+                        <div class="form-control">
+                            <%= form.label :Team_name %>
+                                <br/>
+                                <%= form.text_field :Team_name,class:"form-control", autofocus: true, autocomplete: "email" %>
+                        </div>
+                        <div class="modal-footer">
+                            <%= form.submit "Create",class: "btn btn-success" %>
+
+                        </div>
+                        <%end%>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <% end %>
+
+        <h3 class="row d-flex justify-content-center mt-3"><%= @account.name.capitalize%> Dashboard</h3>
+        <script src="https://drvic10k.github.io/bootstrap-sortable/Scripts/bootstrap-sortable.js"></script>
+        <div class="row d-flex justify-content-center mt-5">
+            <div class="col-md-10">
+                <table class="table table-hover sortable border bg-light">
+                    <thead class="thead-light">
+                        <tr class="d-flex">
+                            <th class="col-2">
+                                Sr.no<i class="fa fa-fw fa-sort"></i>
+                            </th>
+                            <th class="col-2">
+                                NAME <i class="fa fa-fw fa-sort"></i>
+                            </th>
+                            <th class="col-4">
+                                Email <i class="fa fa-fw fa-sort"></i>
+                            </th>
+                            <th class="col-2">
+                                Status <i class="fa fa-fw fa-sort"></i>
+                            </th>
+                            <th class="col-2">
+                                Action
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% count =0 %>
+                            <% @users.each do |user| %>
+                                <tr class="d-flex">
+                                    <td class="col-2">
+                                        <%= count+=1 %>
+                                    </td>
+                                    <td class="col-2">
+                                        <%= user.name %>
+                                    </td>
+                                    <td class="col-4">
+                                        <%= user.email%>
+                                    </td>
+                                    <td class="col-2">
+                                        <%=member_or_owner(user.id)%>
+                                    </td>
+                                    <td class="col-2">
+                                    </td>
+                                </tr>
+                                <% end %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 mt-4 ml-4">
+                <% @teams.each do |u| %>
+                    <div class="card text-white bg-info mb-3" style="max-width: 18rem;">
+                        <div class="card-header">Team</div>
+                        <div class="card-body">
+                            <a href="<%= accounts_team_path(@account,u)%>">
+                                <h5 class="card-title"><%= u.Team_name%></h5></a>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        </div>
+                    </div>
+                <% end %>
+            </div>
+        <div>
